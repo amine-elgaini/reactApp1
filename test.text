@@ -1,0 +1,52 @@
+create table stagiaire(
+        numS int primary key auto_increment,
+        nom varchar(255),
+        prenom varchar(255),
+        age int,
+        adresse varchar(255),
+        CodeG int,
+        foreign key (codeG) references groupe(codeG)
+);
+
+create table filiere(
+        codeF int primary key auto_increment,
+        nomF varchar(255),
+        nbModules int
+);
+
+create table groupe(
+        codeG int primary key auto_increment,
+        nomG varchar(255),
+        ngMaxSt int,
+        codeF int,
+        foreign key (codeF) references filiere(codeF)
+);
+
+--
+insert into stagiaire values(null, 'amine','amine',18,'safi',1);
+insert into filiere values(null, 'science',12);
+insert into groupe values(null, 'g1',30,1);
+--
+
+DELIMITER $$
+CREATE FUNCTION function_name(codeFF int)
+    RETURNS int
+    BEGIN
+        declare res int;
+        select count(*) into res from groupe where codeF = codeFF;
+        return (res);
+    END $$
+DELIMITER ;
+
+2-?
+
+DELIMITER $$
+CREATE PROCEDURE procedure1(in codeF varchar(255))
+    BEGIN
+        select c.codeG, count(*)  as 'nombre des stagier' from groupe g
+        inner join stagiaire on g.codeG = s.codeG
+        where codeF = g.codeF group by g.codeG;
+    END $$
+DELIMITER ;
+
+4-?

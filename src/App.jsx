@@ -1,75 +1,71 @@
-import ProductList from './component/products'
-import Form from './component/form'
-import Home from './component/home'
+import ProductList from './apps/productApp/products'
+import Form from './apps/form'
+import Home from './apps/home'
 
-import PageNotFound from './component/pageNotFound'
-import './App.css';
+import PageNotFound from './apps/pageNotFound'
+import './index.css';
 
 import { BrowserRouter, Routes, Route, Outlet } from 'react-router-dom';
 import React, { useEffect, useState } from 'react'
-import Nav from './component/navbar'
-import UserApp from './component/usersTable/userApp'
+import Nav from './apps/navbar'
+import UserApp from './apps/usersApp/userApp'
+import ToDoListApp from './apps/toDoList/ToDoListApp'
+import NikeApp from './apps/nikeComponent/nikeApp';
 
 export const ThemeContext = React.createContext();
 
 function App() {
 
-  // get darkmode from if it's in the localstorage
-  const getDarkMode = () => {
-    let value = localStorage.getItem("darkMode") ?? false;
-    let darkMode = false;
-    if (value.toString() === 'true') {
-      darkMode = true
-    }
-    return darkMode;
-  }
+	const [darkTheme, setDarkTheme] = useState(()=> localStorage.getItem("darkMode") ?? 'light');
 
-  const [darkTheme, setDarkTheme] = useState(getDarkMode);
+	const toggleTheme = () => {
+		setDarkTheme(p => {
+			const mode = p === 'dark' ? 'light' : 'dark';
+			localStorage.setItem('darkMode', mode);
+			return mode;
+		})
+	}
 
-  const toggleTheme = () => {
-    setDarkTheme(p => {
-      localStorage.setItem('darkMode', !p);
-      return !p;
-    })
-  }
+	useEffect(()=>{
+		if (darkTheme === 'dark') {
+			document.documentElement.classList.add('dark');
+			document.getElementById('darkMode').checked = true;
+		} else {
+			document.documentElement.classList.remove('dark')
+		}
+	}, [darkTheme])
 
-  useEffect(()=>{
-    let toggler = document.getElementById('darkMode');
-    if (toggler && darkTheme) {
-      toggler.checked = true;
-    }
-  }, [])
-
-  return (
+	return (
     <>
-    <ThemeContext.Provider value={darkTheme}>
-      <BrowserRouter>
-        <Routes>
-          <Route path='' element={
-            <>
-              <Nav toggleTheme={toggleTheme}/>
-              <div className= {`${darkTheme && 'dark:bg-gray-900'} container-fluid mx-auto w-75`}>
-                <Outlet />
-              </div>
-            </>
-          }>
+		<ThemeContext.Provider value={darkTheme}>
+		<BrowserRouter>
+			<Routes>
+			<Route path='' element={
+				<>
+				<div className='min-h-screen bg-white dark:bg-gray-800'>
+					<Nav toggleTheme={toggleTheme}/>
+					<Outlet />
+				</div>
+				</>
+			}>
 
-              <Route index element={<Home/>}/>
+				<Route index element={<Home/>}/>
 
-              <Route path='/users' element={<UserApp/>}/>
-              
-              <Route path='/product' element={<ProductList/>}/>
-              <Route path='/form' element={<Form/>}/>
-              <Route path='*' element={<PageNotFound/>}/>
+				<Route path='reactApp1/users' element={<UserApp/>}/>
+				<Route path='reactApp1/toDoList' element={<ToDoListApp/>}/>
+				<Route path='reactApp1/product' element={<ProductList/>}/>
+				<Route path='reactApp1/nikeApp' element={<NikeApp/>}/>
+				<Route path='reactApp1/form' element={<Form/>}/>
+				<Route path='*' element={<PageNotFound/>}/>
 
 
-          </Route>
-        </Routes>
-      </BrowserRouter>
-    </ThemeContext.Provider>
-    </>
-  )
-  
+			</Route>
+			</Routes>
+		</BrowserRouter>
+		</ThemeContext.Provider>
+		</>
+	)
+	
 }
 
 export default App
