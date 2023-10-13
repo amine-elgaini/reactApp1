@@ -49,8 +49,7 @@ function App() {
 				</>
 			}>
 
-				<Route index element={<Home/>}/>
-
+				<Route path='reactApp1/home' element={<Home/>}/>
 				<Route path='reactApp1/users' element={<UserApp/>}/>
 				<Route path='reactApp1/toDoList' element={<ToDoListApp/>}/>
 				<Route path='reactApp1/product' element={<ProductList/>}/>

@@ -17,7 +17,11 @@ export default function UserAdd() {
 
     return (
         <>
-        
+            <button onClick={()=>handleUsers.handleAction('select')} type="button" className="px-3 py-2 text- font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                <span className="">&larr; </span>
+                <span> Table</span>
+            </button>
+            <hr className="my-2"/>
             <form onSubmit={handleSubmit} className="p-4">
                 <div className="mb-6">
                     <label htmlFor="fullName" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Full Name</label>

@@ -12,9 +12,12 @@ export default function UserApp  () {
 
     const [users, setUsers] = useState([
         {id:0,fullName:'default',country:'default'},
+        {id:2,fullName:'default',country:'default'},
+        {id:3,fullName:'default',country:'default'},
+        {id:4,fullName:'default',country:'default'},
     ]);
 
-    const [lastUser, setLastUser] = useState(1);
+    const [lastUser, setLastUser] = useState(4);
 
     const [userEdit, setUserEdit] = useState([{}]);
 
@@ -87,9 +90,12 @@ export default function UserApp  () {
     return (
         <>
             <HandleUsersContext.Provider value={handleUsers}>
-                <Tabs handleAction={handleAction}/>
-                {show}
+                <div className="p-4">
+                    {show}
+                </div>
             </HandleUsersContext.Provider>
+
+            
         </>
     )
 }

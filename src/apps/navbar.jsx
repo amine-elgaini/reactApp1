@@ -1,7 +1,20 @@
 import { Link } from "react-router-dom";
 import DarkModeToggler from "./darkModeToggler";
+import { useState } from "react";
 
 export default function Nav({toggleTheme}) {
+
+    const pages = ['home', 'nikeapp', 'form', 'product', 'todolist', 'users']
+	const [wichPage, setWichPage] = useState('home');
+    const handleWichPage = (e) => {
+        const page = e.target.id;
+        if (pages.includes(page.toLowerCase())) {
+            setWichPage(page)
+        }
+    }
+    const selectedLink = 'block py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white md:dark:text-blue-500'
+    const unSelectedLink = 'block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent'
+
     return (
         <>
 
@@ -19,32 +32,32 @@ export default function Nav({toggleTheme}) {
                     <div className="hidden w-full md:block md:w-auto" id="navbar-default">
                     <ul className="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
                         <li>
-                            <Link to='/' className="block py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white md:dark:text-blue-500" aria-current="page">
+                            <Link id='home' onClick={handleWichPage} to='/reactApp1/home' className={`${'home'=== wichPage ? selectedLink : unSelectedLink}`} aria-current="page">
                                 Home
                             </Link>
                         </li>
                         <li>
-                            <Link to='/reactApp1/nikeApp' className="block py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white md:dark:text-blue-500" aria-current="page">
+                            <Link id='nikeapp' onClick={handleWichPage} to='/reactApp1/nikeApp' className={`${'nikeapp'=== wichPage ? selectedLink : unSelectedLink}`} >
                                 Nike
                             </Link>
                         </li>
                         <li>
-                            <Link to='reactApp1/users' className="block py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white md:dark:text-blue-500" aria-current="page">
+                            <Link id='users' onClick={handleWichPage} to='reactApp1/users' className={`${'users'=== wichPage ? selectedLink : unSelectedLink}`} >
                                 users
                             </Link>
                         </li>
                         <li>
-                            <Link to='reactApp1/toDoList' className="block py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white md:dark:text-blue-500" aria-current="page">
+                            <Link id='todolist' onClick={handleWichPage} to='reactApp1/toDoList' className={`${'todolist'=== wichPage ? selectedLink : unSelectedLink}`} >
                                 ToDoList
                             </Link>
                         </li>
                         <li>
-                            <Link to='reactApp1/product' className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
+                            <Link id='product' onClick={handleWichPage} to='reactApp1/product' className={`${'product'=== wichPage ? selectedLink : unSelectedLink}`} >
                                 Products
                             </Link>
                         </li>
                         <li>
-                            <Link to='reactApp1/form' className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
+                            <Link id='form' onClick={handleWichPage} to='reactApp1/form' className={`${'form'=== wichPage ? selectedLink : unSelectedLink}`} >
                                 Form
                             </Link>
                         </li>
